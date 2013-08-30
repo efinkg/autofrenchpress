@@ -134,7 +134,7 @@ class MainHandler(webapp2.RequestHandler):
       template_values['contact'] = self.mirror_service.contacts().get(
         id='Auto French Press').execute()
     except errors.HttpError:
-      logging.info('Unable to find Python Quick Start contact.')
+      logging.info('Unable to find Auto French Press contact.')
 
     timeline_items = self.mirror_service.timeline().list(maxResults=3).execute()
     template_values['timelineItems'] = timeline_items.get('items', [])

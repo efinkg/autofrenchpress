@@ -81,10 +81,16 @@ class XmppHandler(xmpp_handlers.CommandHandler):
             if id is not None:
                 creds=StorageByKeyName(Credentials, id, 'credentials').get()
                 mirror_service = util.create_service('mirror', 'v1', creds)
-                #logging.info('Main handler: cred: %s',creds)  
-                body = {'notification': {'level': 'DEFAULT'}}
-                body['text'] = message.arg
-                mirror_service.timeline().insert(body=body).execute()
+                #logging.info('Main handler: cred: %s',creds)
+                body= {
+                'creator': {
+                    'displayName': 'Automatic Coffee Maker',
+                    'id': 'Auto French Press Project'
+                },
+                'text': message.arg,
+                'notification': {'level': 'DEFAULT'},
+                }
+                self.mirror_service.timeline().insert(body=body).execute()
 
 class XmppPresenceHandler(webapp2.RequestHandler):
     """Handler class for XMPP status updates."""
